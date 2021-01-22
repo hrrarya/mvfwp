@@ -13,24 +13,16 @@
 
 defined( 'ABSPATH' ) || die('You can\'t access this file directly');
 
+add_action('init', 'my_plugin_init');
 
 
-// ACTION HOOKS
-do_action(); // We use it to create our own action.
+function my_plugin_init() {
+	add_shortcode('test', 'my_plugin_test_shortcode');
+}
 
-add_action(); // We use it to perform actions on do_action(). We can manipulate function whatever function is created with do_action() hook.
-
-remove_action(); // We use it to remove an action.
-
-has_action(); // Conditional statement. We use it to check an action already exists in codebase or not.
-
-
-// FILTER HOOK
-
-apply_filters(); // We use it to apply our own  filters
- 
-add_filter(); // We use it to add filter.
- 
-remove_filter(); // We use it to remove a filter.
-
-has_filter(); // We use it to check a filter already exists or not
+function my_plugin_test_shortcode($attrs) {
+	$attrs = shortcode_atts(array(
+		'message' => 'Hello, World!'
+	), $attrs, 'test');
+	return $attrs['message'];
+}
