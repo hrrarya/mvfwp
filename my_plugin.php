@@ -15,19 +15,22 @@ defined( 'ABSPATH' ) || die('You can\'t access this file directly');
 
 
 
-register_activation_hook(__FILE__, 'my_plugin_register_activation_hook');
+// ACTION HOOKS
+do_action(); // We use it to create our own action.
+
+add_action(); // We use it to perform actions on do_action(). We can manipulate function whatever function is created with do_action() hook.
+
+remove_action(); // We use it to remove an action.
+
+has_action(); // Conditional statement. We use it to check an action already exists in codebase or not.
 
 
-register_deactivation_hook(__FILE__, 'my_plugin_register_deactivation_hook');
+// FILTER HOOK
 
+apply_filters(); // We use it to apply our own  filters
+ 
+add_filter(); // We use it to add filter.
+ 
+remove_filter(); // We use it to remove a filter.
 
-register_uninstall_hook(__FILE__, 'my_plugin_register_uninstall_hook');
-
-
-function my_plugin_register_activation_hook() {
-	add_option('updateTitle', 'Your title is hacked!');
-}
-function my_plugin_register_deactivation_hook() {
-	delete_option('updateTitle');
-}
-function my_plugin_register_uninstall_hook() {}
+has_filter(); // We use it to check a filter already exists or not
