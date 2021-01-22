@@ -13,21 +13,16 @@
 
 defined( 'ABSPATH' ) || die('You can\'t access this file directly');
 
+add_action('init', 'my_plugin_init');
 
 
-register_activation_hook(__FILE__, 'my_plugin_register_activation_hook');
-
-
-register_deactivation_hook(__FILE__, 'my_plugin_register_deactivation_hook');
-
-
-register_uninstall_hook(__FILE__, 'my_plugin_register_uninstall_hook');
-
-
-function my_plugin_register_activation_hook() {
-	add_option('updateTitle', 'Your title is hacked!');
+function my_plugin_init() {
+	add_shortcode('test', 'my_plugin_test_shortcode');
 }
-function my_plugin_register_deactivation_hook() {
-	delete_option('updateTitle');
+
+function my_plugin_test_shortcode($attrs) {
+	$attrs = shortcode_atts(array(
+		'message' => 'Hello, World!'
+	), $attrs, 'test');
+	return $attrs['message'];
 }
-function my_plugin_register_uninstall_hook() {}
